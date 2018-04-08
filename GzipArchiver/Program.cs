@@ -24,7 +24,7 @@ namespace GzipArchiver
 
             var options = new ArgsParser().Parse(args);
 
-            var test = new ChunkedFileWriter();
+            var test = new ChunkedGzipWriter();
             var read = new ChunkedFileReader();
 
             read.OpenResources(options.InputFile);
