@@ -26,16 +26,26 @@ namespace GzipArchiver
 
             var test = new ChunkedFileWriter();
             var read = new ChunkedFileReader();
+
             read.OpenResources(options.InputFile);
             test.OpenResources(options.OuputFile);
 
             long operated = 0;
             long size = read.Lenght;
-            long chunkSize = size / 4;
+            long chunkSize = size / 2;
 
             while (operated < size)
             {
-                test.Chunk((int)operated, read.Chunk((int)operated,(int)(operated + chunkSize)));
+                if ((operated + chunkSize) > size)
+                {
+                    var finalChunkSize = size - operated;
+                    var finalChunk = read.Chunk((int)operated, (int)finalChunkSize);
+                    test.Chunk((int)operated, finalChunk);
+                    break;
+                }
+
+                var chunk = read.Chunk((int)operated, (int)chunkSize);
+                test.Chunk((int)operated, chunk);
                 operated += chunkSize;
             }
 
