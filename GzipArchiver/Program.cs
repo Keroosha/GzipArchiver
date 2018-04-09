@@ -26,44 +26,10 @@ namespace GzipArchiver
 
             var options = new ArgsParser().Parse(args);
 
-            var read = new ChunkedFileReader();
-
-            read.OpenResources(options.InputFile);
-
-            long operated = 0;
-            long size = read.Lenght;
-            long chunkSize = size / options.Chunks;
-
-            while (operated < size)
+            using (var Gzip = new GzipCompress(options))
             {
-                var test = new ChunkedGzipWriter();
-
-                var chunkNumber = (int)((operated / chunkSize) + 1);
-                var zeroes = string.Concat(
-                    Enumerable.Repeat("0", 3 - chunkNumber.ToString().Length).ToArray()
-                );
-
-                test.OpenResources(options.OuputFile + "." + zeroes + chunkNumber);
-
-                if ((operated + chunkSize) > size)
-                {
-                    var finalChunkSize = size - operated;
-                    var finalChunk = read.Chunk((int)operated, (int)finalChunkSize);
-
-                    test.Chunk(0, finalChunk);
-                    test.Dispose();
-                    break;
-                }
-
-                var chunk = read.Chunk((int)operated, (int)chunkSize);
-                test.Chunk(0, chunk);
-                test.Dispose();
-
-                operated += chunkSize;
-                Console.WriteLine("{0} operated of {1}", operated, size);
+                Gzip.Compress();
             }
-
-            read.Dispose();
         }
     }
 }

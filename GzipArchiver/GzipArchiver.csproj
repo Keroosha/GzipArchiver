@@ -49,9 +49,12 @@
     <Compile Include="FileExtenders\IChunkedFileReader.cs" />
     <Compile Include="FileExtenders\ChunkedFileReader.cs" />
     <Compile Include="FileExtenders\IChunkedFileWriter.cs" />
-    <Compile Include="Orchestration\GzipTask.cs" />
+    <Compile Include="GzipCompress.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Orchestration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

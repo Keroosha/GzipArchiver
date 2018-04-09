@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GzipArchiver.FileExtenders
 {
-    internal class ChunkedFileWriter : IChunkedFile
+    internal class ChunkedFileWriter : IChunkedFile, IDisposable
     {
         private FileStream _outputStream;
         public long Lenght => _outputStream.Length;

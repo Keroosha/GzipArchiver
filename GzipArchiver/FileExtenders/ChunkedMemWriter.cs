@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GzipArchiver.FileExtenders
 {
-    class ChunkedMemWriter
+    class ChunkedMemWriter : IDisposable
     {
         private readonly GZipStream _outputStream;
         private readonly MemoryStream _memory;

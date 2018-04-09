@@ -5,7 +5,7 @@ namespace GzipArchiver.Args
     /// <summary>
     /// Options to archiver
     /// </summary>
-    class ArchiverOptions
+    public class ArchiverOptions
     {
         /// <summary>
         /// Read from this file

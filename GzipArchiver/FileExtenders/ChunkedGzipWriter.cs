@@ -12,7 +12,7 @@ namespace GzipArchiver.FileExtenders
     /// only sequential write,
     /// do not forget to Dispose object!
     /// </summary>
-    internal class ChunkedGzipWriter : IChunkedFile, IChunkedFileWriter
+    internal class ChunkedGzipWriter : IChunkedFile, IChunkedFileWriter, IDisposable
     {
         private GZipStream _outputStream;
         public long Lenght => _outputStream.Length;

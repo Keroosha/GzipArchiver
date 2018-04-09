@@ -2,7 +2,7 @@
 
 namespace GzipArchiver.Args
 {
-    class ArgsParser
+    public class ArgsParser
     {
         private string[] _argsStrings;
 
