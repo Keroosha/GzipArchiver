@@ -4,23 +4,42 @@ namespace GzipArchiver.Args
 {
     class ArgsParser
     {
-        public ArgsOptions Parse(string[] argsStrings)
+        private string[] _argsStrings;
+
+        /// <summary>
+        /// Generate from Arg array Archive settings
+        /// </summary>
+        /// <param name="argsStrings">Args array from Main function</param>
+        /// <returns>Archiver Options object</returns>
+        public ArchiverOptions Parse(string[] argsStrings)
         {
-            var paths = FindPathStrings(argsStrings);
-            return new ArgsOptions(paths[0], paths[1]);
+            _argsStrings = argsStrings;
+            return new ArchiverOptions(
+                FindValue("-i"),
+                FindValue("-o"),
+                Convert.ToInt64(FindValue("-c")),
+                Convert.ToInt64(FindValue("-t")),
+                Convert.ToInt64(FindValue("-j"))
+                );
         }
 
-        private string[] FindPathStrings(string[] argsStrings)
+        /// <summary>
+        /// Try to find value from args
+        /// </summary>
+        /// <param name="key">option key with '-' on start</param>
+        /// <returns>param from args</returns>
+        private string FindValue(string key)
         {
-
-            var inputPos = Array.FindIndex(argsStrings, value => value == "-i");
-            var outputPos = Array.FindIndex(argsStrings, value => value == "-o");
-
-            return new string[2]
+            try
             {
-                argsStrings[inputPos + 1],
-                argsStrings[outputPos + 1]
-            };
+                return _argsStrings[
+                    Array.FindIndex(_argsStrings, value => value == key) + 1
+                ];
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

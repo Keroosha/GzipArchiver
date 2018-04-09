@@ -39,14 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Args\ArgsOptions.cs" />
+    <Compile Include="Args\ArchiverOptions.cs" />
     <Compile Include="Args\ArgsParser.cs" />
+    <Compile Include="FileExtenders\ChunkedFileAgregator.cs" />
     <Compile Include="FileExtenders\ChunkedFileWriter.cs" />
-    <Compile Include="FileExtenders\GzipStreamWriter.cs" />
+    <Compile Include="FileExtenders\ChunkedMemWriter.cs" />
+    <Compile Include="FileExtenders\ChunkedGzipWriter.cs" />
     <Compile Include="FileExtenders\IChunkedFile.cs" />
     <Compile Include="FileExtenders\IChunkedFileReader.cs" />
     <Compile Include="FileExtenders\ChunkedFileReader.cs" />
     <Compile Include="FileExtenders\IChunkedFileWriter.cs" />
+    <Compile Include="Orchestration\GzipTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -15,7 +15,7 @@ namespace GzipArchiver.FileExtenders
     internal class ChunkedGzipWriter : IChunkedFile, IChunkedFileWriter
     {
         private GZipStream _outputStream;
-        private long Lenght => _outputStream.Length;
+        public long Lenght => _outputStream.Length;
 
         public void OpenResources(string outputFile)
         {
@@ -32,7 +32,14 @@ namespace GzipArchiver.FileExtenders
 
         public void Dispose()
         {
-            _outputStream.Close();
+            try
+            {
+                _outputStream.Close();
+            }
+            catch (Exception e)
+            {
+                //Do nothing
+            }
             GC.SuppressFinalize(this);
         }
 
