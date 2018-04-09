@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using GzipArchiver.FileExtenders;
 
 namespace GzipArchiver.Orchestration
 {
-    internal class GzipThread
+    public class GzipThread
     {
         private const int SleepTime = 5;
 
@@ -25,7 +24,7 @@ namespace GzipArchiver.Orchestration
             _status = false;
         }
 
-        private void JobScan()
+        public void JobScan()
         {
             while (_status)
             {
