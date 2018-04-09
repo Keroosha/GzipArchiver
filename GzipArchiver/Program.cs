@@ -21,6 +21,9 @@ namespace GzipArchiver
                 Console.WriteLine("Syntax: GzipArchiver -i file -o file.gz");
                 Console.WriteLine("-i input file");
                 Console.WriteLine("-o output file");
+                Console.WriteLine("-с chunk count");
+                Console.WriteLine("-j jobs pool count");
+                Console.WriteLine("-t threads count");
                 return;
             }
 

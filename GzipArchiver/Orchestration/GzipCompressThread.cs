@@ -4,16 +4,14 @@ using GzipArchiver.FileExtenders;
 
 namespace GzipArchiver.Orchestration
 {
-    public class GzipThread
+    public class GzipCompressThread : IGzipThread
     {
-        private const int SleepTime = 5;
-
-        private readonly Queue<GzipJob> _gzipJobs;
+        private readonly Queue<GzipCompressJob> _gzipJobs;
         private bool _status;
 
         public event EventHandler JobDone;
 
-        public GzipThread(Queue<GzipJob> gzipJobs)
+        public GzipCompressThread(Queue<GzipCompressJob> gzipJobs)
         {
             _gzipJobs = gzipJobs;
             _status = true;
@@ -28,37 +26,37 @@ namespace GzipArchiver.Orchestration
         {
             while (_status)
             {
-                GzipJob job;
+                GzipCompressJob compressJob;
                 lock (_gzipJobs)
                 {
                     if (_gzipJobs.Count > 0)
                     {
-                        job = _gzipJobs.Dequeue();
+                        compressJob = _gzipJobs.Dequeue();
                     }
                     else
                     {
                         continue;
                     }
                 }
-                CompressJob(job);
+                CompressJob(compressJob);
             }
         }
 
-        private void CompressJob(GzipJob gzipJob)
+        private void CompressJob(GzipCompressJob gzipCompressJob)
         {
             try
             {
                 using (var chunkedGzip = new ChunkedGzipWriter())
                 {
-                    chunkedGzip.OpenResources(gzipJob.ChunkFile);
-                    chunkedGzip.Chunk(0, gzipJob.Chunks);
+                    chunkedGzip.OpenResources(gzipCompressJob.ChunkFile);
+                    chunkedGzip.Chunk(0, gzipCompressJob.Chunks);
                 }
 
                 OnJobDone();
             }
             catch (Exception E)
             {
-
+                //TODO error handler
             }
 
         }
